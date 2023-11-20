@@ -41,10 +41,11 @@ $username = $_SESSION['username'];
 
     <div class="container">
         <h1>ToDo List</h1>
-        <h2>Welcome,
-            <?php echo $username; ?>
-        </h2>
-
+        <ul>
+            <li>Task 1</li>
+            <li>Task 2</li>
+            <li>Task 3</li>
+        </ul>
     </div>
 
     <script src="../loginPage/script.js"></script>
