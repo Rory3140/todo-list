@@ -57,7 +57,7 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
             <table>
                 <?php
 
-                $listFile = fopen("todolist.txt", "w");
+                $listFile = fopen("todolist.txt", "w") or die("Unable to open file");
                 $sql = "SELECT message_text
                 FROM todo t
                 JOIN users u ON t.userid = u.userid
