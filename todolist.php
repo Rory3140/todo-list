@@ -56,6 +56,8 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
         <div class="default">
             <table>
                 <?php
+
+                $listFile = fopen("todolist.txt", "w");
                 $sql = "SELECT message_text
                 FROM todo t
                 JOIN users u ON t.userid = u.userid
@@ -66,8 +68,10 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr><td>" . $row["message_text"] . "</td></tr>";
+                        fwrite($listFile, $row["message_text"] . "\n");
                     }
                 }
+                fclose($listFile);
                 ?>
             </table>
         </div>
