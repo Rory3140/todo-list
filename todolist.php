@@ -13,6 +13,17 @@ if (!isset($_SESSION['userid'])) {
 // Access the userid and username from the session
 $userid = $_SESSION['userid'];
 $username = $_SESSION['username'];
+
+if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
+    $message_text = $_POST['message_text'];
+
+    $sql = "INSERT INTO todo (userid, message_text)
+    VALUES ('$userid','$message_text');";
+
+    if ($conn->query($sql) === FALSE) {
+        echo "Error: " . $sql . "<br>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +31,7 @@ $username = $_SESSION['username'];
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Golf Website</title>
+    <title>ToDo List</title>
     <link rel="stylesheet" href="../loginPage/style.css">
     <link rel="icon" href="../loginPage/images/websiteIcon.ico">
 
@@ -41,11 +52,38 @@ $username = $_SESSION['username'];
 
     <div class="container">
         <h1>ToDo List</h1>
-        <ul>
-            <li>Task 1</li>
-            <li>Task 2</li>
-            <li>Task 3</li>
-        </ul>
+
+        <div class="default">
+            <table>
+                <?php
+                $sql = "SELECT message_text
+                FROM todo t
+                JOIN users u ON t.userid = u.userid
+                WHERE u.userid = '$userid'
+                ORDER BY t.message_date ASC;";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr><td>" . $row["message_text"] . "</td></tr>";
+                    }
+                }
+                ?>
+            </table>
+        </div>
+
+        <form action="" method="POST" name="todoForm">
+            <?php
+            $rand = rand();
+            $_SESSION['rand'] = $rand;
+            ?>
+            <input type="hidden" value="<?php echo $rand; ?>" name="randcheck" />
+
+            <div>
+                <input class="textbox" type="text" name="message_text" required>
+            </div>
+            <input class="button" type="submit" name="submitBtn" value="Add">
+        </form>
     </div>
 
     <script src="../loginPage/script.js"></script>
