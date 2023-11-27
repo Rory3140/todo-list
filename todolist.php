@@ -125,6 +125,7 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
     <script src="../loginPage/script.js"></script>
     <script>
     function executeScript() {
+        console.log("test");
         // Use AJAX to call a separate PHP file that runs the shell script
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
