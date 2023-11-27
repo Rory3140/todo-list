@@ -23,7 +23,7 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
     if ($conn->query($sql) === FALSE) {
         echo "Error: " . $sql . "<br>";
     }
-    echo shell_exec('./html.sh');
+    
 }
 
 ?>
@@ -106,7 +106,8 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
             </table>
         </div>
 
-        <form action="" method="POST" name="todoForm">
+        <form action="" method="POST" name="todoForm" id="todoForm">
+
             <?php
             $rand = rand();
             $_SESSION['rand'] = $rand;
@@ -116,11 +117,27 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
             <div>
                 <input class="textbox" type="text" name="message_text" required>
             </div>
-            <input class="button" type="submit" name="submitBtn" value="Add">
+            <input class="button" type="submit" name="submitBtn" value="Add" onclick="executeScript()">
+
         </form>
     </div>
 
     <script src="../loginPage/script.js"></script>
+    <script>
+    function executeScript() {
+        // Use AJAX to call a separate PHP file that runs the shell script
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // Optional: You can handle the response from the server here
+                console.log(this.responseText);
+            }
+        };
+        xhttp.open("GET", "execute_script.php", true);
+        xhttp.send();
+    }
+    </script>
+
 </body>
 
 </html>
