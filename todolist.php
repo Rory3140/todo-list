@@ -24,6 +24,8 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
         echo "Error: " . $sql . "<br>";
     }
     
+    echo 'running';
+    shell_exec('./html.sh');
 }
 
 ?>
