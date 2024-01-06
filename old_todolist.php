@@ -58,6 +58,27 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
         <div class="default">
             <table>
                 <?php
+
+                $listFile = fopen("todolist.html", "w") or die("Unable to open file");
+
+                $startString = "
+                <!DOCTYPE html>
+                <html>
+                  <head>
+                    <meta name='viewport' content='width=device-width, initial-scale=1' />
+                    <title>ToDo List</title>
+                    <link rel='stylesheet' href='../loginPage/style.css' />
+                    <link rel='icon' href='../loginPage/images/websiteIcon.ico' />
+                  </head>
+                
+                  <body>
+                    <div class='container' style='width: 80%'>
+                      <h1>ToDo List</h1>
+                      <table>
+                ";
+                fwrite($listFile, $startString . "\n");
+
+
                 $sql = "SELECT message_text
                 FROM todo t
                 JOIN users u ON t.userid = u.userid
@@ -68,8 +89,19 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr><td>" . $row["message_text"] . "</td></tr>";
+                        fwrite($listFile, "<tr><td>" . $row["message_text"] . "</td></tr>" . "\n");
                     }
                 }
+
+                $endString = "
+                            </table>
+                        </div>
+                    </body>
+                </html>
+                ";
+                fwrite($listFile, $endString . "\n");
+
+                fclose($listFile);
                 ?>
             </table>
         </div>
@@ -85,12 +117,26 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
             <div>
                 <input class="textbox" type="text" name="message_text" required>
             </div>
-            <input class="button" type="submit" name="submitBtn" value="Add">
+            <input class="button" type="submit" name="submitBtn" value="Add" onclick="executeScript()">
 
         </form>
     </div>
 
     <script src="../loginPage/script.js"></script>
+    <script>
+    function executeScript() {
+        // Use AJAX to call a separate PHP file that runs the shell script
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // Optional: You can handle the response from the server here
+                console.log(this.responseText);
+            }
+        };
+        xhttp.open("GET", "execute_script.php", true);
+        xhttp.send();
+    }
+    </script>
 
 </body>
 
