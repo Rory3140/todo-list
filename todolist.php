@@ -25,6 +25,15 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
     }
     
 }
+if (isset($_POST['deleteRow'])) {
+    $todoid = $_POST['todoid'];
+    $delete_sql = "DELETE FROM todo WHERE todoid = '$todoid';";
+
+    if ($conn->query($delete_sql) === FALSE) {
+        echo "Error deleting record: " . $conn->error;
+    }
+    
+}
 
 ?>
 
@@ -56,22 +65,28 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
         <h1>ToDo List</h1>
 
         <div class="default">
-            <table>
-                <?php
-                $sql = "SELECT message_text
-                FROM todo t
-                JOIN users u ON t.userid = u.userid
-                WHERE u.userid = '$userid'
-                ORDER BY t.message_date ASC;";
-                $result = $conn->query($sql);
+            <form action="" method="POST" name="deleteForm" id="deleteForm">
 
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr><td>" . $row["message_text"] . "</td></tr>";
+                <table>
+                    <?php
+                    $sql = "SELECT message_text, todoid
+                    FROM todo t
+                    JOIN users u ON t.userid = u.userid
+                    WHERE u.userid = '$userid'
+                    ORDER BY t.message_date ASC;";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr><td>" . $row["message_text"] . "</td>";
+                            echo "<td><input type='hidden' name='todoid' value='" . $row["todoid"] . "'>
+                                    <input class='button' type='submit' name='deleteRow' value='delete'></td>";
+                            echo "</tr>";
+                        }
                     }
-                }
-                ?>
-            </table>
+                    ?>
+                </table>
+            </form>
         </div>
 
         <form action="" method="POST" name="todoForm" id="todoForm">
@@ -80,7 +95,7 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
             $rand = rand();
             $_SESSION['rand'] = $rand;
             ?>
-            <input type="hidden" value="<?php echo $rand; ?>" name="randcheck" />
+            <input type="hidden" value="<?php echo $rand; ?>" name="randcheck">
 
             <div>
                 <input class="textbox" type="text" name="message_text" required>
