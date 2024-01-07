@@ -15,9 +15,9 @@ $fileString = "
     </head>
 
     <body>
-    <div class='container' style='width: 80%'>
-        <h1>ToDo List</h1>
-        <table>
+        <div class='container' style='width: 80%'>
+            <h1>ToDo List</h1>
+            <table>
 ";
 
 // Adds messages to table
