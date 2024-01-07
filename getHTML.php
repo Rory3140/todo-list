@@ -52,7 +52,9 @@ if ($fileString != $fileContents) {
     fclose($listFile);
 
     // Executes script to update display
+    echo "\n--Updating Display--\n"
     $output = shell_exec("bash updateDisplay.sh");
+    echo "\n--Display Successfully Updated--\n"
 }
 
 
