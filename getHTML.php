@@ -5,6 +5,7 @@ include_once '../conn.php';
 // Read the contents of the file into a string
 $fileContents = file_get_contents("todolist.html");
 
+// Adds start of HTML file
 $fileString = "
 <!DOCTYPE html>
 <html>
@@ -33,7 +34,7 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Writes end of html file
+// Adds end of HTML file
 $endString = "
             </table>
         </div>
@@ -42,12 +43,16 @@ $endString = "
 ";
 $fileString .= $endString;
 
+// Checks for database update
 if ($fileString != $fileContents) {
     // Opens html file
-    echo "Updating HTML";
     $listFile = fopen("todolist.html", "w") or die("Unable to open file");
+    // Writes to file
     fwrite($listFile, $fileString);
     fclose($listFile);
+
+    // Executes script to update display
+    $output = shell_exec("bash updateDisplay.sh");
 }
 
 
