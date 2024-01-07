@@ -43,6 +43,7 @@ $fileString .= $endString
 
 if ($fileString != $fileContents) {
     // Opens html file
+    echo "Updating HTML"
     $listFile = fopen("todolist.html", "w") or die("Unable to open file");
     fwrite($listFile, $endString);
 }
