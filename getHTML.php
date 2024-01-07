@@ -1,9 +1,8 @@
 <?php
+// Connects to database
+include_once '../conn.php';
 
 function update() {
-    // Connects to database
-    include_once '../conn.php';
-
     // Read the contents of the file into a string
     $fileContents = file_get_contents("todolist.html");
 
@@ -58,8 +57,6 @@ function update() {
         $output = shell_exec("bash updateDisplay.sh");
         echo "\n--Display Successfully Updated--\n";
     }
-    // Closes connections
-    $conn->close();
 }
 
 // Updates consistantly
@@ -68,5 +65,6 @@ while (true) {
     sleep(1);
 }
 
-
+// Closes connections
+$conn->close();
 ?>
