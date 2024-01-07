@@ -54,7 +54,7 @@ function update($conn) {
 
         // Executes script to update display
         echo "\n--Updating Display--\n";
-        $output = shell_exec("bash updateDisplay.sh");
+        $output = shell_exec("bash updateDisplay.sh > /dev/null 2>&1");
         echo "\n--Display Successfully Updated--\n";
     }
 }
