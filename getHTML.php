@@ -62,7 +62,7 @@ function update() {
 // Updates consistantly
 while (true) {
     update();
-    sleep(1);
+    sleep(5);
 }
 
 // Closes connections
