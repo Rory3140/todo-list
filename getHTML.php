@@ -28,7 +28,8 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $fileString .= "\n" . "<tr><td>" . $row["message_text"] . "</td></tr>" . "\n";
+        $rowString = "\n" . "<tr><td>" . $row["message_text"] . "</td></tr>" . "\n";
+        $fileString = $fileString . $rowString;
     }
 }
 
@@ -39,7 +40,7 @@ $endString = "
     </body>
 </html>
 ";
-$fileString .= $endString;
+$fileString = $fileString . $endString;
 
 if ($fileString != $fileContents) {
     // Opens html file
