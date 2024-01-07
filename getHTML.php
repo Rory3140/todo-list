@@ -2,11 +2,10 @@
 // Connects to database
 include_once '../conn.php';
 
-// Opens html file
-$listFile = fopen("todolist.html", "w") or die("Unable to open file");
+// Read the contents of the file into a string
+$fileContents = file_get_contents("todolist.html");
 
-// Writes start of html file
-$startString = "
+$fileString = "
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +19,6 @@ $startString = "
         <h1>ToDo List</h1>
         <table>
 ";
-fwrite($listFile, $startString . "\n");
 
 // Adds messages to table
 $sql = "SELECT message_text
@@ -30,7 +28,7 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        fwrite($listFile, "<tr><td>" . $row["message_text"] . "</td></tr>" . "\n");
+        $fileString .= "\n" . "<tr><td>" . $row["message_text"] . "</td></tr>" . "\n";
     }
 }
 
@@ -41,7 +39,15 @@ $endString = "
     </body>
 </html>
 ";
-fwrite($listFile, $endString . "\n");
+$fileString .= $endString
+
+if ($fileString != $fileContents) {
+    // Opens html file
+    $listFile = fopen("todolist.html", "w") or die("Unable to open file");
+    fwrite($listFile, $endString);
+}
+
+
 
 // Closes file and connections
 fclose($listFile);
