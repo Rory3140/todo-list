@@ -47,11 +47,11 @@ if ($fileString != $fileContents) {
     echo "Updating HTML";
     $listFile = fopen("todolist.html", "w") or die("Unable to open file");
     fwrite($listFile, $fileString);
+    fclose($listFile);
 }
 
 
 
-// Closes file and connections
-fclose($listFile);
+// Closes connections
 $conn->close();
 ?>
