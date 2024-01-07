@@ -29,7 +29,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $rowString = "\n" . "<tr><td>" . $row["message_text"] . "</td></tr>" . "\n";
-        $fileString = $fileString . $rowString;
+        $fileString .= $rowString;
     }
 }
 
@@ -40,13 +40,13 @@ $endString = "
     </body>
 </html>
 ";
-$fileString = $fileString . $endString;
+$fileString .= $endString;
 
 if ($fileString != $fileContents) {
     // Opens html file
     echo "Updating HTML";
     $listFile = fopen("todolist.html", "w") or die("Unable to open file");
-    fwrite($listFile, $endString);
+    fwrite($listFile, $fileString);
 }
 
 
