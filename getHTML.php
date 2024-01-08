@@ -2,7 +2,7 @@
 // Connects to database
 include_once $PATH . "conn.php";
 
-$PATH = "/home/raspberrypi/programs/updateDisplay/todoList/"
+$PATH = "/home/raspberrypi/programs/updateDisplay/todoList/";
 
 function update($conn) {
     // Read the contents of the file into a string
