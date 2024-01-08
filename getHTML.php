@@ -4,7 +4,7 @@ include_once 'conn.php';
 
 function update($conn) {
     // Read the contents of the file into a string
-    $fileContents = file_get_contents("/home/raspberrypi/programs/updateDisplay/todoList/todolist.html");
+    $fileContents = file_get_contents("./todolist.html");
 
     // Adds start of HTML file
     $fileString = "
@@ -47,14 +47,14 @@ function update($conn) {
     // Checks for database update
     if ($fileString != $fileContents) {
         // Opens html file
-        $listFile = fopen("todolist.html", "w") or die("Unable to open file");
+        $listFile = fopen("./todolist.html", "w") or die("Unable to open file");
         // Writes to file
         fwrite($listFile, $fileString);
         fclose($listFile);
 
         // Executes script to update display
         echo "\n--Updating Display\n";
-        $output = shell_exec("bash scripts/updateDisplay.sh");
+        $output = shell_exec("bash ./scripts/updateDisplay.sh");
         echo "--Success\n";
     }
 }
