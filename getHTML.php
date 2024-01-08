@@ -5,6 +5,7 @@ $PATH = "/home/raspberrypi/programs/updateDisplay/todoList/";
 include_once $PATH . "conn.php";
 
 function update($conn) {
+    global $PATH;
     // Read the contents of the file into a string
     $fileContents = file_get_contents($PATH . "todolist.html");
 
