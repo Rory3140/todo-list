@@ -1,3 +1,3 @@
 #!/bin/bash
 
-nohup php ../getHTML.php > /dev/null 2>&1 &
+nohup php /home/raspberrypi/programs/updateDisplay/todoList/scripts/getHTML.php > /dev/null 2>&1 &
