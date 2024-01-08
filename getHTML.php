@@ -1,10 +1,10 @@
 <?php
 // Connects to database
-include_once 'conn.php';
+include_once '/conn.php';
 
 function update($conn) {
     // Read the contents of the file into a string
-    $fileContents = file_get_contents("todolist.html");
+    $fileContents = file_get_contents("/todolist.html");
 
     // Adds start of HTML file
     $fileString = "
