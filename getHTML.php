@@ -1,6 +1,6 @@
 <?php
 // Connects to database
-include_once '../conn.php';
+include_once 'conn.php';
 
 function update($conn) {
     // Read the contents of the file into a string
@@ -13,7 +13,7 @@ function update($conn) {
         <head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <title>ToDo List</title>
-        <link rel='stylesheet' href='../style.css' />
+        <link rel='stylesheet' href='style.css' />
         </head>
 
         <body>
