@@ -25,7 +25,7 @@ if (isset($_POST['submitBtn']) && $_POST['randcheck'] == $_SESSION['rand']) {
     }
     
 }
-if (isset($_POST['deleteRow'])) {
+if (isset($_POST['delete_row'])) {
     $todoid = $_POST['todoid'];
     $delete_sql = "DELETE FROM todo WHERE todoid = '$todoid';";
 
@@ -51,7 +51,7 @@ if (isset($_POST['deleteRow'])) {
 <body>
 
     <nav id="navbar">
-        <div id="menu-icon">
+        <div id="menu_icon">
             <div class="line"></div>
             <div class="line"></div>
             <div class="line"></div>
@@ -61,11 +61,11 @@ if (isset($_POST['deleteRow'])) {
         <a href="../loginPage/logout.php" class="button" id="logout">Logout</a>
     </nav>
 
-    <div class="container">
+    <div id="wide_container" class="container">
         <h1>ToDo List</h1>
 
         <div class="default">
-            <form action="" method="POST" name="deleteForm" id="deleteForm">
+            <form action="" method="POST" name="delete_form">
 
                 <table>
                     <?php
@@ -80,7 +80,7 @@ if (isset($_POST['deleteRow'])) {
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr><td>" . $row["message_text"] . "</td>";
                             echo "<td><input type='hidden' name='todoid' value='" . $row["todoid"] . "'>
-                                    <input class='button' type='submit' name='deleteRow' value='delete'></td>";
+                                    <input class='delete_button' type='submit' name='delete_row' value='X'></td>";
                             echo "</tr>";
                         }
                     }
