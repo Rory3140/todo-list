@@ -51,7 +51,7 @@ if (isset($_POST['delete_row'])) {
 <body>
 
     <nav id="navbar">
-        <div id="menu_icon">
+        <div id="menu-icon">
             <div class="line"></div>
             <div class="line"></div>
             <div class="line"></div>
